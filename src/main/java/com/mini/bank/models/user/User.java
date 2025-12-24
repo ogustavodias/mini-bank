@@ -34,5 +34,5 @@ public abstract class User {
    @Column(nullable = false)
    private BigDecimal balance;
 
-   public abstract boolean canTransfer();
+   public abstract boolean canTransfer(BigDecimal amount);
 }
