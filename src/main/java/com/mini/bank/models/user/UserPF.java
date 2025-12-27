@@ -5,9 +5,13 @@ import java.math.BigDecimal;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tb_users_pf")
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserPF extends User {
 
    @Column(nullable = false)
@@ -24,4 +28,5 @@ public class UserPF extends User {
 
       return isValidAmount && sufficientBalance;
    }
+
 }
