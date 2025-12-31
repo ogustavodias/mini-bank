@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserPJ extends User {
+public class UserPj extends User {
 
    @Column(nullable = false)
    String cnpj;

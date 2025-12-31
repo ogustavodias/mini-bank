@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mini.bank.models.user.UserRequestDTO;
+import com.mini.bank.models.user.UserPfRequestDto;
+import com.mini.bank.models.user.UserPjRequestDto;
 import com.mini.bank.services.UserService;
 
 import jakarta.validation.Valid;
@@ -25,10 +26,25 @@ public class UserController {
 
    private final UserService service;
 
-   @PostMapping
-   public ResponseEntity<Void> registerUser(@RequestBody @Valid UserRequestDTO dto) {
+   @PostMapping("/pf")
+   public ResponseEntity<Void> registerUser(@RequestBody @Valid UserPfRequestDto dto) {
       log.warn("Body recebido: {}", dto);
-      
+
+      UUID id = service.registerUser(dto).getId();
+
+      URI location = ServletUriComponentsBuilder
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(id)
+            .toUri();
+
+      return ResponseEntity.created(location).build();
+   }
+
+   @PostMapping("/pj")
+   public ResponseEntity<Void> registerUser(@RequestBody @Valid UserPjRequestDto dto) {
+      log.warn("Body recebido: {}", dto);
+
       UUID id = service.registerUser(dto).getId();
 
       URI location = ServletUriComponentsBuilder
