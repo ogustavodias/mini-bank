@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.mini.bank.models.user.UserRequestDTO;
 import com.mini.bank.services.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,9 +26,9 @@ public class UserController {
    private final UserService service;
 
    @PostMapping
-   public ResponseEntity<Void> registerUser(@RequestBody UserRequestDTO dto) {
+   public ResponseEntity<Void> registerUser(@RequestBody @Valid UserRequestDTO dto) {
       log.warn("Body recebido: {}", dto);
-
+      
       UUID id = service.registerUser(dto).getId();
 
       URI location = ServletUriComponentsBuilder

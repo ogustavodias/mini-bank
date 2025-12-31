@@ -1,29 +1,33 @@
 package com.mini.bank.models.user;
 
-import java.math.BigDecimal;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-public record UserRequestDTO(String name, String email, String password, String document, UserType userType) {
+public record UserRequestDTO(
+            @NotEmpty String name,
+            @NotEmpty String email,
+            @NotEmpty String password,
+            @NotEmpty String document,
+            @NotNull UserType userType) {
 
-   public User toEntity() {
-      User user = null;
+      public UserPF toUserPF() {
+            UserPF user = new UserPF(this.document);
 
-/*       if (this.userType == UserType.PF) {
-         user = new UserPF(document);
-         user.setBalance(BigDecimal.valueOf(500.0));
+            user.setEmail(this.email);
+            user.setName(this.name);
+            user.setPassword(this.password);
+
+            return user;
       }
 
-      if (this.userType == UserType.PJ) {
-         user = new UserPJ(document);
-         user.setBalance(BigDecimal.ZERO);
-      } */
+      public UserPJ toUserPJ() {
+            UserPJ user = new UserPJ(this.document);
 
-      user = new UserPF(document);
-      user.setBalance(BigDecimal.valueOf(500.0));   
-      user.setName(this.name);
-      user.setEmail(this.email);
-      user.setPassword(this.password);
+            user.setEmail(this.email);
+            user.setName(this.name);
+            user.setPassword(this.password);
 
-      return user;
-   }
+            return user;
+      }
 
 }

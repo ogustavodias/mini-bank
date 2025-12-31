@@ -6,16 +6,20 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tb_users_pf")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class UserPF extends User {
 
    @Column(nullable = false)
-   String cpf;
+   private String cpf;
 
    @Override
    public boolean canTransfer(BigDecimal amount) {
@@ -27,6 +31,11 @@ public class UserPF extends User {
       boolean sufficientBalance = this.getBalance().compareTo(amount) >= 0;
 
       return isValidAmount && sufficientBalance;
+   }
+
+   @Override
+   public BigDecimal initialBalance() {
+      return BigDecimal.valueOf(500.0);
    }
 
 }

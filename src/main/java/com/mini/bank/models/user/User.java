@@ -37,4 +37,6 @@ public abstract class User {
    private BigDecimal balance;
 
    public abstract boolean canTransfer(BigDecimal amount);
+
+   public abstract BigDecimal initialBalance();
 }
