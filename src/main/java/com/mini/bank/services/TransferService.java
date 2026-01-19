@@ -34,7 +34,11 @@ public class TransferService {
       User payer = userService.searchUser(dto.payerId());
       User receiver = userService.searchUser(dto.receiverId());
 
-      Transfer transfer = new Transfer(null, payer, receiver, dto.amount(), null);
+      Transfer transfer = Transfer.builder()
+            .payer(payer)
+            .receiver(receiver)
+            .amount(dto.amount())
+            .build();
 
       authorizeClient.authorizeTransfer();
       userService.processUserTransfer(transfer);
