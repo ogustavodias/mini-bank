@@ -1,6 +1,7 @@
 package com.mini.bank.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import com.mini.bank.models.transfer.Transfer;
 import com.mini.bank.models.user.User;
 import com.mini.bank.models.user.UserPf;
 import com.mini.bank.models.user.UserRequestDto;
+import com.mini.bank.models.user.UserView;
 import com.mini.bank.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -21,6 +23,10 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
    private final UserRepository repository;
+
+   public List<UserView> searchAllUsers() {
+      return repository.findAllViews();
+   }
 
    public User searchUser(UUID id) {
       return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado."));
